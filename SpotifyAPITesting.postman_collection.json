@@ -1,0 +1,1899 @@
+{
+	"info": {
+		"_postman_id": "9a85e835-ba00-40f2-813e-472d4f5762ba",
+		"name": "SpotifyAPITesting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37161733",
+		"_collection_link": "https://ffvhv0.postman.co/workspace/Spotify-API-Testing~7075aafa-a5ff-4c35-ae57-913209938225/collection/37161733-9a85e835-ba00-40f2-813e-472d4f5762ba?action=share&source=collection_link&creator=37161733"
+	},
+	"item": [
+		{
+			"name": "me",
+			"item": [
+				{
+					"name": "Get My Profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"display_name\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"email\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"external_urls\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"spotify\": {\r",
+									"          \"type\": \"string\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"spotify\"\r",
+									"      ]\r",
+									"    },\r",
+									"    \"followers\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"href\": {\r",
+									"          \"type\": [\"string\",\"null\"]\r",
+									"        },\r",
+									"        \"total\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"href\",\r",
+									"        \"total\"\r",
+									"      ]\r",
+									"    },\r",
+									"    \"href\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"id\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"images\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"url\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"height\": {\r",
+									"                \"type\": [\"integer\", \"null\"]\r",
+									"            },\r",
+									"            \"width\": {\r",
+									"              \"type\": [\"integer\",\"null\"]\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"url\",\r",
+									"            \"height\",\r",
+									"            \"width\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    },\r",
+									"    \"type\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"uri\": {\r",
+									"      \"type\": \"string\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"display_name\",\r",
+									"    \"email\",\r",
+									"    \"external_urls\",\r",
+									"    \"followers\",\r",
+									"    \"href\",\r",
+									"    \"id\",\r",
+									"    \"images\",\r",
+									"    \"type\",\r",
+									"    \"uri\"\r",
+									"  ]\r",
+									"}\r",
+									"\r",
+									"var responseData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\",()=>{\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body is valid\", () => {\r",
+									"    pm.expect(responseData).to.be.jsonSchema(schema);\r",
+									"})\r",
+									"\r",
+									"pm.collectionVariables.set(\"user_id\", responseData.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}me",
+							"host": [
+								"{{baseURL}}me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"display_name\": {\r",
+									"      \"type\": [\"string\",\"null\"]\r",
+									"    },\r",
+									"    \"external_urls\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"spotify\": {\r",
+									"          \"type\": \"string\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"spotify\"\r",
+									"      ]\r",
+									"    },\r",
+									"    \"followers\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"href\": {\r",
+									"          \"type\": [\"string\",\"null\"]\r",
+									"        },\r",
+									"        \"total\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"href\",\r",
+									"        \"total\"\r",
+									"      ]\r",
+									"    },\r",
+									"    \"href\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"id\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"images\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"url\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"height\": {\r",
+									"              \"type\": [\"integer\",\"null\"]\r",
+									"            },\r",
+									"            \"width\": {\r",
+									"              \"type\": [\"integer\",\"null\"]\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"url\",\r",
+									"            \"height\",\r",
+									"            \"width\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    },\r",
+									"    \"type\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"uri\": {\r",
+									"      \"type\": \"string\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"display_name\",\r",
+									"    \"external_urls\",\r",
+									"    \"followers\",\r",
+									"    \"href\",\r",
+									"    \"id\",\r",
+									"    \"images\",\r",
+									"    \"type\",\r",
+									"    \"uri\"\r",
+									"  ]\r",
+									"}\r",
+									"\r",
+									"var responseData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\",()=>{\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body is valid\", () => {\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Validate user ID\", () => {\r",
+									"    pm.expect(responseData.id).to.be.eql(pm.collectionVariables.get(\"user_id\"));\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}users/{{user_id}}",
+							"host": [
+								"{{baseURL}}users"
+							],
+							"path": [
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get My Following",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"artists\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"href\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"limit\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"next\": {\r",
+									"          \"type\": [\"string\",\"null\"]\r",
+									"        },\r",
+									"        \"cursors\": {\r",
+									"          \"type\": [\"object\",\"null\"],\r",
+									"          \"properties\": {\r",
+									"            \"after\": {\r",
+									"              \"type\": [\"string\",\"null\"]\r",
+									"            },\r",
+									"            \"before\": {\r",
+									"              \"type\": \"string\"\r",
+									"            }\r",
+									"          },\r",
+									"        },\r",
+									"        \"total\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"items\": {\r",
+									"          \"type\": \"array\",\r",
+									"          \"items\": [\r",
+									"            {\r",
+									"              \"type\": \"object\",\r",
+									"              \"properties\": {\r",
+									"                \"external_urls\": {\r",
+									"                  \"type\": \"object\",\r",
+									"                  \"properties\": {\r",
+									"                    \"spotify\": {\r",
+									"                      \"type\": \"string\"\r",
+									"                    }\r",
+									"                  },\r",
+									"                  \"required\": [\r",
+									"                    \"spotify\"\r",
+									"                  ]\r",
+									"                },\r",
+									"                \"followers\": {\r",
+									"                  \"type\": \"object\",\r",
+									"                  \"properties\": {\r",
+									"                    \"href\": {\r",
+									"                      \"type\": [\"string\",\"null\"]\r",
+									"                    },\r",
+									"                    \"total\": {\r",
+									"                      \"type\": \"integer\"\r",
+									"                    }\r",
+									"                  },\r",
+									"                  \"required\": [\r",
+									"                    \"href\",\r",
+									"                    \"total\"\r",
+									"                  ]\r",
+									"                },\r",
+									"                \"genres\": {\r",
+									"                  \"type\": \"array\",\r",
+									"                  \"items\": [\r",
+									"                    {\r",
+									"                      \"type\": \"string\"\r",
+									"                    },\r",
+									"                    {\r",
+									"                      \"type\": \"string\"\r",
+									"                    }\r",
+									"                  ]\r",
+									"                },\r",
+									"                \"href\": {\r",
+									"                  \"type\": \"string\"\r",
+									"                },\r",
+									"                \"id\": {\r",
+									"                  \"type\": \"string\"\r",
+									"                },\r",
+									"                \"images\": {\r",
+									"                  \"type\": \"array\",\r",
+									"                  \"items\": [\r",
+									"                    {\r",
+									"                      \"type\": \"object\",\r",
+									"                      \"properties\": {\r",
+									"                        \"url\": {\r",
+									"                          \"type\": \"string\"\r",
+									"                        },\r",
+									"                        \"height\": {\r",
+									"                          \"type\": \"integer\"\r",
+									"                        },\r",
+									"                        \"width\": {\r",
+									"                          \"type\": \"integer\"\r",
+									"                        }\r",
+									"                      },\r",
+									"                      \"required\": [\r",
+									"                        \"url\",\r",
+									"                        \"height\",\r",
+									"                        \"width\"\r",
+									"                      ]\r",
+									"                    }\r",
+									"                  ]\r",
+									"                },\r",
+									"                \"name\": {\r",
+									"                  \"type\": \"string\"\r",
+									"                },\r",
+									"                \"popularity\": {\r",
+									"                  \"type\": \"integer\"\r",
+									"                },\r",
+									"                \"type\": {\r",
+									"                  \"type\": \"string\"\r",
+									"                },\r",
+									"                \"uri\": {\r",
+									"                  \"type\": \"string\"\r",
+									"                }\r",
+									"              },\r",
+									"              \"required\": [\r",
+									"                \"external_urls\",\r",
+									"                \"followers\",\r",
+									"                \"genres\",\r",
+									"                \"href\",\r",
+									"                \"id\",\r",
+									"                \"images\",\r",
+									"                \"name\",\r",
+									"                \"popularity\",\r",
+									"                \"type\",\r",
+									"                \"uri\"\r",
+									"              ]\r",
+									"            }\r",
+									"          ]\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"href\",\r",
+									"        \"limit\",\r",
+									"        \"next\",\r",
+									"        \"cursors\",\r",
+									"        \"total\",\r",
+									"        \"items\"\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"artists\"\r",
+									"  ]\r",
+									"}\r",
+									"\r",
+									"var responseData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\",()=>{\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", () => {\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response artist length is equal to limit\",()=>{\r",
+									"    pm.expect(responseData.artists.total).to.be.lessThanOrEqual(pm.variables.get(\"limit\"));\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.variables.set(\"limit\",5)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}me/following?type=artist&limit={{limit}}",
+							"host": [
+								"{{baseURL}}me"
+							],
+							"path": [
+								"following"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "artist"
+								},
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Top Item",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.variables.set(\"type\",\"artists\");\r",
+									"pm.variables.set(\"limit\",6);\r",
+									"pm.variables.set(\"offset\", 1);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const artist_schema = {\r",
+									"     type: \"object\",\r",
+									"  properties: {\r",
+									"    items: {\r",
+									"      type: \"array\",\r",
+									"      items: {\r",
+									"        type: \"object\",\r",
+									"        properties: {\r",
+									"          name: { type: \"string\" },\r",
+									"          id: { type: \"string\" },\r",
+									"          genres: {\r",
+									"            type: \"array\",\r",
+									"            items: { type: \"string\" }\r",
+									"          },\r",
+									"          popularity: { type: \"integer\" },\r",
+									"          external_urls: {\r",
+									"            type: \"object\",\r",
+									"            properties: {\r",
+									"              spotify: { type: \"string\" }\r",
+									"            },\r",
+									"            required: [\"spotify\"]\r",
+									"          },\r",
+									"          followers: {\r",
+									"            type: \"object\",\r",
+									"            properties: {\r",
+									"              href: { type: [\"string\", \"null\"] },\r",
+									"              total: { type: \"integer\" }\r",
+									"            },\r",
+									"            required: [\"href\", \"total\"]\r",
+									"          },\r",
+									"          images: {\r",
+									"            type: \"array\",\r",
+									"            items: {\r",
+									"              type: \"object\",\r",
+									"              properties: {\r",
+									"                url: { type: \"string\" },\r",
+									"                height: { type: \"integer\" },\r",
+									"                width: { type: \"integer\" }\r",
+									"              },\r",
+									"              required: [\"url\", \"height\", \"width\"]\r",
+									"            }\r",
+									"          },\r",
+									"          type: { type: \"string\" },\r",
+									"          uri: { type: \"string\" },\r",
+									"          href: { type: \"string\" }\r",
+									"        },\r",
+									"        required: [\"name\", \"id\", \"genres\", \"popularity\", \"external_urls\", \"followers\", \"images\", \"type\", \"uri\", \"href\"]\r",
+									"      }\r",
+									"    },\r",
+									"    total: { type: \"integer\" },\r",
+									"    limit: { type: \"integer\" },\r",
+									"    offset: { type: \"integer\" },\r",
+									"    previous: {\r",
+									"      anyOf: [{ type: \"string\" }, { type: \"null\" }]\r",
+									"    },\r",
+									"    next: {\r",
+									"      anyOf: [{ type: \"string\" }, { type: \"null\" }]\r",
+									"    },\r",
+									"    href: { type: \"string\" }\r",
+									"  },\r",
+									"  required: [\"items\", \"total\", \"limit\", \"offset\", \"href\"]\r",
+									"}\r",
+									"\r",
+									"const track_schema = {\r",
+									"     type: \"object\",\r",
+									"  properties: {\r",
+									"    items: {\r",
+									"      type: \"array\",\r",
+									"      items: {\r",
+									"        type: \"object\",\r",
+									"        properties: {\r",
+									"          album: {\r",
+									"            type: \"object\",\r",
+									"            properties: {\r",
+									"              name: { type: \"string\" },\r",
+									"              release_date: { type: \"string\" },\r",
+									"              total_tracks: { type: \"integer\" },\r",
+									"              images: {\r",
+									"                type: \"array\",\r",
+									"                items: {\r",
+									"                  type: \"object\",\r",
+									"                  properties: {\r",
+									"                    url: { type: \"string\" },\r",
+									"                    height: { type: \"integer\" },\r",
+									"                    width: { type: \"integer\" }\r",
+									"                  },\r",
+									"                  required: [\"url\", \"height\", \"width\"]\r",
+									"                }\r",
+									"              }\r",
+									"            },\r",
+									"            required: [\"name\", \"release_date\", \"total_tracks\", \"images\"]\r",
+									"          },\r",
+									"          name: { type: \"string\" },\r",
+									"          duration_ms: { type: \"integer\" },\r",
+									"          popularity: { type: \"integer\" },\r",
+									"          explicit: { type: \"boolean\" },\r",
+									"          external_urls: {\r",
+									"            type: \"object\",\r",
+									"            properties: {\r",
+									"              spotify: { type: \"string\" }\r",
+									"            },\r",
+									"            required: [\"spotify\"]\r",
+									"          }\r",
+									"        },\r",
+									"        required: [\"album\", \"name\", \"duration_ms\", \"popularity\", \"explicit\", \"external_urls\"]\r",
+									"      }\r",
+									"    },\r",
+									"    total: { type: \"integer\" },\r",
+									"    limit: { type: \"integer\" },\r",
+									"    offset: { type: \"integer\" },\r",
+									"    previous: {\r",
+									"      anyOf: [{ type: \"string\" }, { type: \"null\" }]\r",
+									"    },\r",
+									"    next: {\r",
+									"      anyOf: [{ type: \"string\" }, { type: \"null\" }]\r",
+									"    },\r",
+									"    href: { type: \"string\" }\r",
+									"  },\r",
+									"  required: [\"items\", \"total\", \"limit\", \"offset\", \"href\"]\r",
+									"}\r",
+									"\r",
+									"var responseData = pm.response.json();\r",
+									"const request_type = pm.request.url.path[3];\r",
+									"const limit = parseInt(pm.request.url.query.get(\"limit\"));\r",
+									"const offset = parseInt(pm.request.url.query.get(\"offset\"));\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\",()=>{\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate response schema based on userType\", function () {\r",
+									"    let schemaToUse;\r",
+									"\r",
+									"    if (request_type === \"artists\") {\r",
+									"        schemaToUse = artist_schema;\r",
+									"    } else if (request_type === \"tracks\") {\r",
+									"        schemaToUse = track_schema;\r",
+									"    } else {\r",
+									"        throw new Error(\"Unknown userType: \" + userType);\r",
+									"    }\r",
+									"\r",
+									"    pm.expect(responseData).to.have.jsonSchema(schemaToUse);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate limit and offset query params\", function () {\r",
+									"    pm.expect(limit, \"Limit param is missing or not a number\").to.be.a('number');\r",
+									"    pm.expect(offset, \"Offset param is missing or not a number\").to.be.a('number');\r",
+									"    \r",
+									"    // Spotify-specific validation\r",
+									"    pm.expect(limit).to.be.within(1, 50);   // limit: 1 to 50\r",
+									"    pm.expect(offset).to.be.at.least(0);    // offset: 0 or higher\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response item count matches limit\", function () {\r",
+									"    if (Array.isArray(responseData.items)) {\r",
+									"        pm.expect(responseData.items.length).to.be.at.most(limit);\r",
+									"    } else {\r",
+									"        console.warn(\"No 'items' array in response\");\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}me/top/{{type}}?limit={{limit}}&offset={{offset}}",
+							"host": [
+								"{{baseURL}}me"
+							],
+							"path": [
+								"top",
+								"{{type}}"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								},
+								{
+									"key": "offset",
+									"value": "{{offset}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Followed Artists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const followingArtistsSchema = {\r",
+									"  type: \"object\",\r",
+									"  properties: {\r",
+									"    artists: {\r",
+									"      type: \"object\",\r",
+									"      properties: {\r",
+									"        href: { type: \"string\" },\r",
+									"        limit: { type: \"integer\" },\r",
+									"        next: { type: [\"string\", \"null\"] },\r",
+									"        total: { type: \"integer\" },\r",
+									"        cursors: {\r",
+									"          type: \"object\",\r",
+									"          properties: {\r",
+									"            after: { type: [\"string\", \"null\"] },\r",
+									"            before: { type: [\"string\", \"null\"] }\r",
+									"          },\r",
+									"          required: [\"after\"]\r",
+									"        },\r",
+									"        items: {\r",
+									"          type: \"array\",\r",
+									"          items: {\r",
+									"            type: \"object\",\r",
+									"            properties: {\r",
+									"              external_urls: {\r",
+									"                type: \"object\",\r",
+									"                properties: {\r",
+									"                  spotify: { type: \"string\" }\r",
+									"                },\r",
+									"                required: [\"spotify\"]\r",
+									"              },\r",
+									"              followers: {\r",
+									"                type: \"object\",\r",
+									"                properties: {\r",
+									"                  href: { type: [\"string\", \"null\"] },\r",
+									"                  total: { type: \"integer\" }\r",
+									"                },\r",
+									"                required: [\"href\", \"total\"]\r",
+									"              },\r",
+									"              genres: {\r",
+									"                type: \"array\",\r",
+									"                items: { type: \"string\" }\r",
+									"              },\r",
+									"              href: { type: \"string\" },\r",
+									"              id: { type: \"string\" },\r",
+									"              images: {\r",
+									"                type: \"array\",\r",
+									"                items: {\r",
+									"                  type: \"object\",\r",
+									"                  properties: {\r",
+									"                    url: { type: \"string\" },\r",
+									"                    height: { type: [\"integer\", \"null\"] },\r",
+									"                    width: { type: [\"integer\", \"null\"] }\r",
+									"                  },\r",
+									"                  required: [\"url\", \"height\", \"width\"]\r",
+									"                }\r",
+									"              },\r",
+									"              name: { type: \"string\" },\r",
+									"              popularity: { type: \"integer\" },\r",
+									"              type: { type: \"string\", enum: [\"artist\"] },\r",
+									"              uri: { type: \"string\" }\r",
+									"            },\r",
+									"            required: [\r",
+									"              \"external_urls\",\r",
+									"              \"followers\",\r",
+									"              \"genres\",\r",
+									"              \"href\",\r",
+									"              \"id\",\r",
+									"              \"images\",\r",
+									"              \"name\",\r",
+									"              \"popularity\",\r",
+									"              \"type\",\r",
+									"              \"uri\"\r",
+									"            ]\r",
+									"          }\r",
+									"        }\r",
+									"      },\r",
+									"      required: [\"href\", \"limit\", \"next\", \"total\", \"cursors\", \"items\"]\r",
+									"    }\r",
+									"  },\r",
+									"  required: [\"artists\"]\r",
+									"};\r",
+									"\r",
+									"var responseData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\",()=>{\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains artists\",()=>{\r",
+									"    pm.expect(responseData).to.have.property(\"artists\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"'items' is an array of artists\", function () {\r",
+									"  const items = responseData.artists.items;\r",
+									"  pm.expect(items).to.be.an(\"array\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Each artist contains required fields\", function () {\r",
+									"  const items = pm.response.json().artists.items;\r",
+									"  items.forEach(artist => {\r",
+									"    pm.expect(artist).to.have.property(\"id\");\r",
+									"    pm.expect(artist).to.have.property(\"name\");\r",
+									"    pm.expect(artist).to.have.property(\"type\", \"artist\");\r",
+									"    pm.expect(artist).to.have.property(\"followers\");\r",
+									"    pm.expect(artist.followers).to.have.property(\"total\");\r",
+									"    pm.expect(artist).to.have.property(\"genres\").that.is.an(\"array\");\r",
+									"    pm.expect(artist).to.have.property(\"external_urls\");\r",
+									"    pm.expect(artist.external_urls).to.have.property(\"spotify\");\r",
+									"  });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Items returned are within the limit\", function () {\r",
+									"  pm.expect(responseData.artists.items.length).to.be.at.most(responseData.artists.limit);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Schema validation for followed artists\", function () {\r",
+									"  pm.response.to.have.jsonSchema(followingArtistsSchema);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}me/following?type=artist",
+							"host": [
+								"{{baseURL}}me"
+							],
+							"path": [
+								"following"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "artist"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "search",
+			"item": [
+				{
+					"name": "Search for Item",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.variables.set(\"q\",\"remaster%20track:Doxy%20artist:Miles%20Davis\")\r",
+									"// Define available types\r",
+									"const types = [\"track\", \"artist\", \"album\", \"playlist\", \"episode\", \"show\"];\r",
+									"\r",
+									"// Randomly decide how many types to pick: 1 to total number of types\r",
+									"const numTypesToPick = Math.floor(Math.random() * types.length) + 1;\r",
+									"\r",
+									"// Shuffle array and pick first `numTypesToPick` items\r",
+									"const shuffled = types.sort(() => 0.5 - Math.random());\r",
+									"const selectedTypes = shuffled.slice(0, numTypesToPick);\r",
+									"\r",
+									"// Join into comma-separated string\r",
+									"const typeParam = selectedTypes.join(\",\");\r",
+									"\r",
+									"// Save to environment variable\r",
+									"pm.variables.set(\"type\", typeParam);\r",
+									"pm.collectionVariables.set(\"market\",\"IN\");\r",
+									"pm.variables.set(\"limit\",5);\r",
+									"pm.variables.set(\"offset\", 0);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is under 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"const params = pm.request.url.query;\r",
+									"const q = params.find(p => p.key === 'q')?.value;\r",
+									"const type = params.find(p => p.key === 'type')?.value;\r",
+									"\r",
+									"pm.test(\"Query and type are present\", function () {\r",
+									"    pm.expect(q).to.not.be.undefined;\r",
+									"    pm.expect(type).to.not.be.undefined;\r",
+									"});\r",
+									"\r",
+									"const limit = parseInt(params.find(p => p.key === 'limit')?.value || 20);\r",
+									"const offset = parseInt(params.find(p => p.key === 'offset')?.value || 0);\r",
+									"\r",
+									"pm.test(\"Limit and offset are within expected range\", function () {\r",
+									"    pm.expect(limit).to.be.within(1, 50);\r",
+									"    pm.expect(offset).to.be.at.least(0);\r",
+									"});\r",
+									"\r",
+									"const types = type.split(',');\r",
+									"types.forEach(t => {\r",
+									"    const key = t.trim() + 's';  // artist -> artists\r",
+									"    pm.test(`Response contains '${key}'`, function () {\r",
+									"        pm.expect(responseData).to.have.property(key);\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}search?q={{q}}&type={{type}}&market={{market}}&limit={{limit}}&offset={{offset}}",
+							"host": [
+								"{{baseURL}}search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "{{q}}"
+								},
+								{
+									"key": "type",
+									"value": "{{type}}"
+								},
+								{
+									"key": "market",
+									"value": "{{market}}"
+								},
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								},
+								{
+									"key": "offset",
+									"value": "{{offset}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "playlist",
+			"item": [
+				{
+					"name": "Get user playlist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const userPlaylistsSchema = {\r",
+									"  type: \"object\",\r",
+									"  properties: {\r",
+									"    href: { type: \"string\" },\r",
+									"    limit: { type: \"integer\" },\r",
+									"    next: { type: [\"string\", \"null\"] },\r",
+									"    offset: { type: \"integer\" },\r",
+									"    previous: { type: [\"string\", \"null\"] },\r",
+									"    total: { type: \"integer\" },\r",
+									"    items: {\r",
+									"      type: \"array\",\r",
+									"      items: {\r",
+									"        type: \"object\",\r",
+									"        properties: {\r",
+									"          collaborative: { type: \"boolean\" },\r",
+									"          description: { type: [\"string\", \"null\"] },\r",
+									"          external_urls: {\r",
+									"            type: \"object\",\r",
+									"            properties: { spotify: { type: \"string\" } },\r",
+									"            required: [\"spotify\"]\r",
+									"          },\r",
+									"          href: { type: \"string\" },\r",
+									"          id: { type: \"string\" },\r",
+									"          images: {\r",
+									"            type: \"array\",\r",
+									"            items: {\r",
+									"              type: \"object\",\r",
+									"              properties: {\r",
+									"                url: { type: \"string\" },\r",
+									"                height: { type: [\"integer\", \"null\"] },\r",
+									"                width: { type: [\"integer\", \"null\"] }\r",
+									"              },\r",
+									"              required: [\"url\", \"height\", \"width\"]\r",
+									"            }\r",
+									"          },\r",
+									"          name: { type: \"string\" },\r",
+									"          owner: {\r",
+									"            type: \"object\",\r",
+									"            properties: {\r",
+									"              external_urls: {\r",
+									"                type: \"object\",\r",
+									"                properties: { spotify: { type: \"string\" } },\r",
+									"                required: [\"spotify\"]\r",
+									"              },\r",
+									"              href: { type: \"string\" },\r",
+									"              id: { type: \"string\" },\r",
+									"              type: { type: \"string\" },\r",
+									"              uri: { type: \"string\" },\r",
+									"              display_name: { type: [\"string\", \"null\"] }\r",
+									"            },\r",
+									"            required: [\"external_urls\", \"href\", \"id\", \"type\", \"uri\", \"display_name\"]\r",
+									"          },\r",
+									"          public: { type: [\"boolean\", \"null\"] },\r",
+									"          snapshot_id: { type: \"string\" },\r",
+									"          tracks: {\r",
+									"            type: \"object\",\r",
+									"            properties: {\r",
+									"              href: { type: \"string\" },\r",
+									"              total: { type: \"integer\" }\r",
+									"            },\r",
+									"            required: [\"href\", \"total\"]\r",
+									"          },\r",
+									"          type: { type: \"string\" },\r",
+									"          uri: { type: \"string\" }\r",
+									"        },\r",
+									"        required: [\r",
+									"          \"collaborative\",\r",
+									"          \"external_urls\",\r",
+									"          \"href\",\r",
+									"          \"id\",\r",
+									"          \"name\",\r",
+									"          \"owner\",\r",
+									"          \"public\",\r",
+									"          \"snapshot_id\",\r",
+									"          \"tracks\",\r",
+									"          \"type\",\r",
+									"          \"uri\"\r",
+									"        ]\r",
+									"      }\r",
+									"    }\r",
+									"  },\r",
+									"  required: [\"href\", \"limit\", \"offset\", \"total\", \"items\"]\r",
+									"};\r",
+									"\r",
+									"var responseData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\",()=>{\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is non-empty\",()=>{\r",
+									"    pm.expect(responseData).to.not.be.empty;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is valid\",()=>{\r",
+									"    pm.response.to.be.jsonSchema(userPlaylistsSchema);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Items length matches or is less than limit\", function () {\r",
+									"  pm.expect(responseData.items.length).to.be.at.most(responseData.limit);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Items are non-empty\",()=>{\r",
+									"    pm.expect(responseData.items).to.not.be.empty;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Owner details verification for each playlist\",()=>{\r",
+									"    pm.expect(responseData.items.forEach(item=>{\r",
+									"        pm.expect(item.owner.id).to.be.equal(pm.collectionVariables.get(\"user_id\"));\r",
+									"    }))\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains required top-level fields\", function () {\r",
+									"  const json = pm.response.json();\r",
+									"  pm.expect(json).to.have.property(\"href\");\r",
+									"  pm.expect(json).to.have.property(\"limit\");\r",
+									"  pm.expect(json).to.have.property(\"offset\");\r",
+									"  pm.expect(json).to.have.property(\"total\");\r",
+									"  pm.expect(json).to.have.property(\"items\").that.is.an(\"array\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Each playlist item contains required fields\", function () {\r",
+									"  const playlists = pm.response.json().items;\r",
+									"\r",
+									"  playlists.forEach(p => {\r",
+									"    pm.expect(p).to.have.property(\"id\");\r",
+									"    pm.expect(p).to.have.property(\"name\");\r",
+									"    pm.expect(p).to.have.property(\"collaborative\");\r",
+									"    pm.expect(p).to.have.property(\"public\");\r",
+									"    pm.expect(p).to.have.property(\"uri\");\r",
+									"    pm.expect(p).to.have.nested.property(\"owner.id\");\r",
+									"    pm.expect(p).to.have.nested.property(\"external_urls.spotify\");\r",
+									"    pm.expect(p).to.have.nested.property(\"tracks.href\");\r",
+									"    pm.expect(p).to.have.nested.property(\"tracks.total\");\r",
+									"  });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Total is not less than items length\", function () {\r",
+									"  pm.expect(responseData.total).to.be.at.least(responseData.items.length);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"All items are of type 'playlist'\", function () {\r",
+									"  const items = pm.response.json().items;\r",
+									"  items.forEach(p => {\r",
+									"    pm.expect(p.type).to.eql(\"playlist\");\r",
+									"  });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"All playlist URIs are valid Spotify URIs\", function () {\r",
+									"  const items = pm.response.json().items;\r",
+									"  items.forEach(p => {\r",
+									"    pm.expect(p.uri).to.match(/^spotify:playlist:/);\r",
+									"  });\r",
+									"});\r",
+									"\r",
+									"var ids = responseData.items.map(item => item.id);\r",
+									"pm.collectionVariables.set(\"playlistIds\", JSON.stringify(ids));\r",
+									"pm.collectionVariables.set(\"playlist_id\", responseData.items[0].id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}users/{{user_id}}/playlists",
+							"host": [
+								"{{baseURL}}users"
+							],
+							"path": [
+								"{{user_id}}",
+								"playlists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user playlist Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const userPlaylistsSchema = {\r",
+									"  type: \"object\",\r",
+									"  properties: {\r",
+									"    href: { type: \"string\" },\r",
+									"    limit: { type: \"integer\" },\r",
+									"    next: { type: [\"string\", \"null\"] },\r",
+									"    offset: { type: \"integer\" },\r",
+									"    previous: { type: [\"string\", \"null\"] },\r",
+									"    total: { type: \"integer\" },\r",
+									"    items: {\r",
+									"      type: \"array\",\r",
+									"      items: {\r",
+									"        type: \"object\",\r",
+									"        properties: {\r",
+									"          collaborative: { type: \"boolean\" },\r",
+									"          description: { type: [\"string\", \"null\"] },\r",
+									"          external_urls: {\r",
+									"            type: \"object\",\r",
+									"            properties: { spotify: { type: \"string\" } },\r",
+									"            required: [\"spotify\"]\r",
+									"          },\r",
+									"          href: { type: \"string\" },\r",
+									"          id: { type: \"string\" },\r",
+									"          images: {\r",
+									"            type: \"array\",\r",
+									"            items: {\r",
+									"              type: \"object\",\r",
+									"              properties: {\r",
+									"                url: { type: \"string\" },\r",
+									"                height: { type: [\"integer\", \"null\"] },\r",
+									"                width: { type: [\"integer\", \"null\"] }\r",
+									"              },\r",
+									"              required: [\"url\", \"height\", \"width\"]\r",
+									"            }\r",
+									"          },\r",
+									"          name: { type: \"string\" },\r",
+									"          owner: {\r",
+									"            type: \"object\",\r",
+									"            properties: {\r",
+									"              external_urls: {\r",
+									"                type: \"object\",\r",
+									"                properties: { spotify: { type: \"string\" } },\r",
+									"                required: [\"spotify\"]\r",
+									"              },\r",
+									"              href: { type: \"string\" },\r",
+									"              id: { type: \"string\" },\r",
+									"              type: { type: \"string\" },\r",
+									"              uri: { type: \"string\" },\r",
+									"              display_name: { type: [\"string\", \"null\"] }\r",
+									"            },\r",
+									"            required: [\"external_urls\", \"href\", \"id\", \"type\", \"uri\", \"display_name\"]\r",
+									"          },\r",
+									"          public: { type: [\"boolean\", \"null\"] },\r",
+									"          snapshot_id: { type: \"string\" },\r",
+									"          tracks: {\r",
+									"            type: \"object\",\r",
+									"            properties: {\r",
+									"              href: { type: \"string\" },\r",
+									"              total: { type: \"integer\" }\r",
+									"            },\r",
+									"            required: [\"href\", \"total\"]\r",
+									"          },\r",
+									"          type: { type: \"string\" },\r",
+									"          uri: { type: \"string\" }\r",
+									"        },\r",
+									"        required: [\r",
+									"          \"collaborative\",\r",
+									"          \"external_urls\",\r",
+									"          \"href\",\r",
+									"          \"id\",\r",
+									"          \"name\",\r",
+									"          \"owner\",\r",
+									"          \"public\",\r",
+									"          \"snapshot_id\",\r",
+									"          \"tracks\",\r",
+									"          \"type\",\r",
+									"          \"uri\"\r",
+									"        ]\r",
+									"      }\r",
+									"    }\r",
+									"  },\r",
+									"  required: [\"href\", \"limit\", \"offset\", \"total\", \"items\"]\r",
+									"};\r",
+									"\r",
+									"var responseData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\",()=>{\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is non-empty\",()=>{\r",
+									"    pm.expect(responseData).to.not.be.empty;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is valid\",()=>{\r",
+									"    pm.response.to.be.jsonSchema(userPlaylistsSchema);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Items length matches or is less than limit\", function () {\r",
+									"  pm.expect(responseData.items.length).to.be.at.most(responseData.limit);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Items are non-empty\",()=>{\r",
+									"    pm.expect(responseData.items).to.not.be.empty;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Owner details verification for each playlist\",()=>{\r",
+									"    pm.expect(responseData.items.forEach(item=>{\r",
+									"        pm.expect(item.owner.id).to.be.equal(pm.collectionVariables.get(\"user_id\"));\r",
+									"    }))\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains required top-level fields\", function () {\r",
+									"  const json = pm.response.json();\r",
+									"  pm.expect(json).to.have.property(\"href\");\r",
+									"  pm.expect(json).to.have.property(\"limit\");\r",
+									"  pm.expect(json).to.have.property(\"offset\");\r",
+									"  pm.expect(json).to.have.property(\"total\");\r",
+									"  pm.expect(json).to.have.property(\"items\").that.is.an(\"array\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Each playlist item contains required fields\", function () {\r",
+									"  const playlists = pm.response.json().items;\r",
+									"\r",
+									"  playlists.forEach(p => {\r",
+									"    pm.expect(p).to.have.property(\"id\");\r",
+									"    pm.expect(p).to.have.property(\"name\");\r",
+									"    pm.expect(p).to.have.property(\"collaborative\");\r",
+									"    pm.expect(p).to.have.property(\"public\");\r",
+									"    pm.expect(p).to.have.property(\"uri\");\r",
+									"    pm.expect(p).to.have.nested.property(\"owner.id\");\r",
+									"    pm.expect(p).to.have.nested.property(\"external_urls.spotify\");\r",
+									"    pm.expect(p).to.have.nested.property(\"tracks.href\");\r",
+									"    pm.expect(p).to.have.nested.property(\"tracks.total\");\r",
+									"  });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Total is not less than items length\", function () {\r",
+									"  pm.expect(responseData.total).to.be.at.least(responseData.items.length);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"All items are of type 'playlist'\", function () {\r",
+									"  const items = pm.response.json().items;\r",
+									"  items.forEach(p => {\r",
+									"    pm.expect(p.type).to.eql(\"playlist\");\r",
+									"  });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"All playlist URIs are valid Spotify URIs\", function () {\r",
+									"  const items = pm.response.json().items;\r",
+									"  items.forEach(p => {\r",
+									"    pm.expect(p.uri).to.match(/^spotify:playlist:/);\r",
+									"  });\r",
+									"});\r",
+									"\r",
+									"var ids = responseData.items.map(item => item.id);\r",
+									"pm.collectionVariables.set(\"playlistIds\", JSON.stringify(ids));\r",
+									"pm.collectionVariables.set(\"playlist_id\", responseData.items[-1].id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}users/{{user_id}}/playlists",
+							"host": [
+								"{{baseURL}}users"
+							],
+							"path": [
+								"{{user_id}}",
+								"playlists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Playlist",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.variables.set(\"name\",\"Updated using API\");\r",
+									"pm.variables.set(\"description\", \"This playlist was updated using the API\");\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{name}}\",\r\n    \"description\": \"{{description}}\",\r\n    \"public\": false,\r\n   \"collaborative\":true \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}playlists/{{playlist_id}}",
+							"host": [
+								"{{baseURL}}playlists"
+							],
+							"path": [
+								"{{playlist_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Playlist",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const playlistSchema = {\r",
+									"  type: \"object\",\r",
+									"  properties: {\r",
+									"    collaborative: { type: \"boolean\" },\r",
+									"    description: { type: [\"string\", \"null\"] },\r",
+									"    external_urls: {\r",
+									"      type: \"object\",\r",
+									"      properties: {\r",
+									"        spotify: { type: \"string\" }\r",
+									"      },\r",
+									"      required: [\"spotify\"]\r",
+									"    },\r",
+									"    href: { type: \"string\" },\r",
+									"    id: { type: \"string\" },\r",
+									"    images: {\r",
+									"      type: \"array\",\r",
+									"      items: {\r",
+									"        type: \"object\",\r",
+									"        properties: {\r",
+									"          url: { type: \"string\" },\r",
+									"          height: { type: [\"integer\", \"null\"] },\r",
+									"          width: { type: [\"integer\", \"null\"] }\r",
+									"        },\r",
+									"        required: [\"url\", \"height\", \"width\"]\r",
+									"      }\r",
+									"    },\r",
+									"    name: { type: [\"string\", \"null\"] },\r",
+									"    owner: {\r",
+									"      type: \"object\",\r",
+									"      properties: {\r",
+									"        external_urls: {\r",
+									"          type: \"object\",\r",
+									"          properties: {\r",
+									"            spotify: { type: \"string\" }\r",
+									"          },\r",
+									"          required: [\"spotify\"]\r",
+									"        },\r",
+									"        href: { type: \"string\" },\r",
+									"        id: { type: \"string\" },\r",
+									"        type: { type: \"string\" },\r",
+									"        uri: { type: \"string\" },\r",
+									"        display_name: { type: [\"string\", \"null\"] }\r",
+									"      },\r",
+									"      required: [\"external_urls\", \"href\", \"id\", \"type\", \"uri\", \"display_name\"]\r",
+									"    },\r",
+									"    public: { type: [\"boolean\", \"null\"] },\r",
+									"    snapshot_id: { type: \"string\" },\r",
+									"    tracks: {\r",
+									"      type: \"object\",\r",
+									"      properties: {\r",
+									"        href: { type: \"string\" },\r",
+									"        total: { type: \"integer\" },\r",
+									"        limit: { type: [\"integer\", \"null\"] },\r",
+									"        next: { type: [\"string\", \"null\"] },\r",
+									"        offset: { type: [\"integer\", \"null\"] },\r",
+									"        previous: { type: [\"string\", \"null\"] },\r",
+									"        items: {\r",
+									"          type: \"array\",\r",
+									"          items: {\r",
+									"            type: \"object\",\r",
+									"            properties: {\r",
+									"              added_at: { type: \"string\" },\r",
+									"              added_by: {\r",
+									"                type: \"object\",\r",
+									"                properties: {\r",
+									"                  external_urls: {\r",
+									"                    type: \"object\",\r",
+									"                    properties: {\r",
+									"                      spotify: { type: \"string\" }\r",
+									"                    },\r",
+									"                    required: [\"spotify\"]\r",
+									"                  },\r",
+									"                  href: { type: \"string\" },\r",
+									"                  id: { type: \"string\" },\r",
+									"                  type: { type: \"string\" },\r",
+									"                  uri: { type: \"string\" }\r",
+									"                },\r",
+									"                required: [\"external_urls\", \"href\", \"id\", \"type\", \"uri\"]\r",
+									"              },\r",
+									"              is_local: { type: \"boolean\" },\r",
+									"              track: {\r",
+									"                type: \"object\",\r",
+									"                properties: {\r",
+									"                  album: { type: \"object\" },\r",
+									"                  artists: { type: \"array\" },\r",
+									"                  duration_ms: { type: \"integer\" },\r",
+									"                  explicit: { type: \"boolean\" },\r",
+									"                  external_urls: { type: \"object\" },\r",
+									"                  href: { type: \"string\" },\r",
+									"                  id: { type: \"string\" },\r",
+									"                  name: { type: \"string\" },\r",
+									"                  type: { type: \"string\" },\r",
+									"                  uri: { type: \"string\" }\r",
+									"                },\r",
+									"                required: [\"album\", \"artists\", \"duration_ms\", \"explicit\", \"external_urls\", \"href\", \"id\", \"name\", \"type\", \"uri\"]\r",
+									"              }\r",
+									"            },\r",
+									"            required: [\"added_at\", \"added_by\", \"is_local\", \"track\"]\r",
+									"          }\r",
+									"        }\r",
+									"      },\r",
+									"      required: [\"href\", \"total\", \"items\"]\r",
+									"    },\r",
+									"    type: { type: \"string\" },\r",
+									"    uri: { type: \"string\" }\r",
+									"  },\r",
+									"  required: [\"collaborative\", \"external_urls\", \"href\", \"id\", \"name\", \"owner\", \"public\", \"snapshot_id\", \"tracks\", \"type\", \"uri\"]\r",
+									"};\r",
+									"\r",
+									"var responseData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\",()=>{\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response is not empty\",()=>{\r",
+									"    pm.expect(Object.keys(responseData).length).to.be.above(0);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is valid\",()=>{\r",
+									"    pm.response.to.have.jsonSchema(playlistSchema);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Playlist ID is valid\",()=>{\r",
+									"    pm.expect(responseData.id).to.be.equal(pm.collectionVariables.get(\"playlist_id\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains required fields\", function () {\r",
+									"  pm.expect(responseData).to.have.property(\"id\");\r",
+									"  pm.expect(responseData).to.have.property(\"name\");\r",
+									"  pm.expect(responseData).to.have.property(\"tracks\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Playlist contains at least one track\", function () {\r",
+									"  pm.expect(responseData.tracks.items.length).to.be.above(0);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Playlist public/private status is defined\", function () {\r",
+									"  pm.expect(responseData.public).to.be.oneOf([true, false, null]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Track count matches expected total\", function () {\r",
+									"  pm.expect(responseData.tracks.total).to.be.at.least(responseData.tracks.items.length);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}playlists/{{playlist_id}}?market={{market}}",
+							"host": [
+								"{{baseURL}}playlists"
+							],
+							"path": [
+								"{{playlist_id}}"
+							],
+							"query": [
+								{
+									"key": "market",
+									"value": "{{market}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reorder Playlist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\",()=>{\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Snapshot ID is present in the response\", () => {\r",
+									"    pm.expect(responseData).to.have.property(\"snapshot_id\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Snapshot ID is not empty\", () => {\r",
+									"    pm.expect(responseData.snapshot_id).to.not.be.empty;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Snapshot ID is a string\", () => {\r",
+									"    pm.expect(responseData.snapshot_id).to.be.a('string');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"range_start\": 1,\r\n    \"insert_before\": 3,\r\n    \"range_length\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}playlists/{{playlist_id}}/tracks",
+							"host": [
+								"{{baseURL}}playlists"
+							],
+							"path": [
+								"{{playlist_id}}",
+								"tracks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Item to Playlist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 201\",()=>{\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Snapshot ID is present in the response\", () => {\r",
+									"    pm.expect(responseData).to.have.property(\"snapshot_id\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Snapshot ID is not empty\", () => {\r",
+									"    pm.expect(responseData.snapshot_id).to.not.be.empty;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Snapshot ID is a string\", () => {\r",
+									"    pm.expect(responseData.snapshot_id).to.be.a('string');\r",
+									"});\r",
+									"\r",
+									"pm.collectionVariables.set(\"snapshot_id\", responseData.snapshot_id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"uris\": [\r\n        \"spotify:track:4iV5W9uYEdYUVa79Axb7Rh\",\"spotify:track:1301WleyT98MSxVHPZCA6M\", \"spotify:episode:512ojhOuo1ktJprKbVcKyQ\"\r\n    ],\r\n    \"position\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}playlists/{{playlist_id}}/tracks",
+							"host": [
+								"{{baseURL}}playlists"
+							],
+							"path": [
+								"{{playlist_id}}",
+								"tracks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Items",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\",()=>{\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Snapshot ID is present in the response\", () => {\r",
+									"    pm.expect(responseData).to.have.property(\"snapshot_id\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Snapshot ID is not empty\", () => {\r",
+									"    pm.expect(responseData.snapshot_id).to.not.be.empty;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Snapshot ID is a string\", () => {\r",
+									"    pm.expect(responseData.snapshot_id).to.be.a('string');\r",
+									"});\r",
+									"\r",
+									"pm.collectionVariables.unset(\"snapshot_id\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tracks\": [\r\n        {\"uri\": \"spotify:track:4iV5W9uYEdYUVa79Axb7Rh\"},\r\n        {\"uri\":\"spotify:track:1301WleyT98MSxVHPZCA6M\"}\r\n    ],\r\n    \"snapshot_id\": \"{{snapshot_id}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}playlists/{{playlist_id}}/tracks",
+							"host": [
+								"{{baseURL}}playlists"
+							],
+							"path": [
+								"{{playlist_id}}",
+								"tracks"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "scope",
+				"value": "playlist-modify-public playlist-read-private playlist-modify-private user-read-email user-follow-read user-top-read",
+				"type": "string"
+			},
+			{
+				"key": "refreshRequestParams",
+				"value": [],
+				"type": "any"
+			},
+			{
+				"key": "redirect_uri",
+				"value": "https://www.getpostman.com/oauth2/callback",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "Spotify Tokens",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "https://accounts.spotify.com/api/token",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "https://accounts.spotify.com/authorize",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "{{clientSecret}}",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "{{clientId}}",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "clientId",
+			"value": "87f64dcb93234fbcb04b75136ee2fcba",
+			"type": "string"
+		},
+		{
+			"key": "clientSecret",
+			"value": "333e93f94470407c8ae3a46716e88165",
+			"type": "string"
+		},
+		{
+			"key": "baseURL",
+			"value": "https://api.spotify.com/v1/",
+			"type": "string"
+		},
+		{
+			"key": "user_id",
+			"value": ""
+		},
+		{
+			"key": "market",
+			"value": ""
+		},
+		{
+			"key": "playlist_id",
+			"value": ""
+		},
+		{
+			"key": "playlistIds",
+			"value": ""
+		},
+		{
+			"key": "new_playlist_id",
+			"value": ""
+		}
+	]
+}
